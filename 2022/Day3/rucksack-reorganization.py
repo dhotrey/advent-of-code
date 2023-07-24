@@ -3,6 +3,7 @@ def main():
     with open("input.txt") as f:
         contents = f.readlines()
     total = 0
+    new_total = 0
     
     pts_map = dict(zip(string.ascii_letters,range(1,53)))
 
@@ -11,7 +12,27 @@ def main():
         # print(f"{len(i)} \n {len(compt1)} : {compt1=},\n {len(compt2)} : {compt2=}") # debug
         repeated = get_repeated(compt1,compt2)
         total += pts_map[repeated]
-    print(total)
+    print(f"{total=}")
+    
+    group = []
+    contents.append(" ")
+
+    for j,i in enumerate(contents,start=1):
+        # print(f"{i=} \n Iteration {j=}")
+        if len(group) < 3:
+            group.append(i)
+            continue
+        group.append(i)
+        common_ltr = get_repeated_from3(group[:3])
+        # print(f"{common_ltr=}")
+        new_total += pts_map[common_ltr]
+        # print(f"{group=}")
+        group = group[3:]
+        # print(f"modified{group=}")
+        # print("---------------------------------------------")
+    print(f"{new_total=}")
+    
+
         
         
 def split_word(word):
@@ -23,6 +44,14 @@ def split_word(word):
 def get_repeated(word1,word2):
     for i in word1:
         if i in word2:
+            return i
+
+def get_repeated_from3(wordarr):
+    # print(f"{wordarr=}")
+    w1 , w2 , w3 = wordarr
+    
+    for i in w1:
+        if i in w2 and i in w3:
             return i
         
 if __name__ == "__main__":
