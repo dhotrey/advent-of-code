@@ -1,11 +1,42 @@
 def main():
-    with open("/workspaces/AdventOfCode/2022/Day5/input.txt") as f:
+    with open("C:\\Users\\aryan\\Downloads\\input.txt","r") as f:
         content = f.readlines()
         
     stack , instructions = separateStackfromInstructions(content)
     
     stackdct = getStack(stack)
-    print(stackdct)
+    # print(stackdct)
+    stackdct = remove_empty(stackdct)
+    # print(stackdct)
+    rearranged_stack = apply_instructions(stackdct,instructions)
+    # print(rearranged_stack)
+    top_of_all_stacks = get_result(rearranged_stack)
+    print(top_of_all_stacks)
+
+
+def get_result(stack):
+    result = ''
+    for i in stack:
+        result += stack[i][-1]
+    return result
+def remove_empty(stack):
+    for i in stack:
+        while " " in stack[i]:
+            stack[i].remove(" ")
+    return stack
+
+def apply_instructions(stack,instructions):
+    
+    for instruction in instructions:
+        _,qty,_,loc,_,dest = map(lambda x: int(x) if x.isnumeric() else x, instruction.strip().split(" "))
+        stacklen = len(stack[loc])
+        items = stack[loc][stacklen - qty:]
+        items = items[::-1]
+        stack[dest].extend(items)
+        stack[loc] = stack[loc][:-qty]
+    
+    return stack
+        
     
 
 def separateStackfromInstructions(content:list):
@@ -36,7 +67,7 @@ def getStack(stack:list)  -> dict:
         final_stack.append(cleaned)
         i += 1
     for i in final_stack:
-        print(i)
+        # print(i)
         for j in i:
             if (j.isalpha() or j.isspace()) and stacknum < 10:
                 stackdct[stacknum].append(j)
