@@ -13,9 +13,6 @@ def main():
     top_of_all_stacks = get_result(rearranged_stack)
     print(top_of_all_stacks)
 
-    # new_arrangement = using_crane_mover_9001(stackdct,instructions)
-    # top_of_all_stacks = get_result(new_arrangement)
-
 
 def get_result(stack):
     result = ""
@@ -38,7 +35,7 @@ def apply_instructions(stack, instructions):
         )
         stacklen = len(stack[loc])
         items = stack[loc][stacklen - qty :]
-        # items = items[::-1]
+        # items = items[::-1] # uncomment for part 1 solution
         stack[dest].extend(items)
         stack[loc] = stack[loc][:-qty]
 
