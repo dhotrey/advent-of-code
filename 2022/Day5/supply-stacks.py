@@ -1,5 +1,5 @@
 def main():
-    with open("C:\\Users\\aryan\\Downloads\\input.txt","r") as f:
+    with open("input.txt","r") as f:
         content = f.readlines()
         
     stack , instructions = separateStackfromInstructions(content)
@@ -9,9 +9,12 @@ def main():
     stackdct = remove_empty(stackdct)
     # print(stackdct)
     rearranged_stack = apply_instructions(stackdct,instructions)
-    # print(rearranged_stack)
+    print(rearranged_stack)
     top_of_all_stacks = get_result(rearranged_stack)
     print(top_of_all_stacks)
+    
+    # new_arrangement = using_crane_mover_9001(stackdct,instructions)
+    # top_of_all_stacks = get_result(new_arrangement)
 
 
 def get_result(stack):
@@ -19,6 +22,7 @@ def get_result(stack):
     for i in stack:
         result += stack[i][-1]
     return result
+
 def remove_empty(stack):
     for i in stack:
         while " " in stack[i]:
@@ -26,12 +30,11 @@ def remove_empty(stack):
     return stack
 
 def apply_instructions(stack,instructions):
-    
     for instruction in instructions:
         _,qty,_,loc,_,dest = map(lambda x: int(x) if x.isnumeric() else x, instruction.strip().split(" "))
         stacklen = len(stack[loc])
         items = stack[loc][stacklen - qty:]
-        items = items[::-1]
+        # items = items[::-1]
         stack[dest].extend(items)
         stack[loc] = stack[loc][:-qty]
     
