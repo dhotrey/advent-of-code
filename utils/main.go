@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"aoc/cmd/aoc"
+)
 
 func main() {
-	fmt.Println("")
+	aoc.Execute()
 }
