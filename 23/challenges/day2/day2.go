@@ -26,7 +26,7 @@ func main() {
 			blue:  14,
 			green: 13,
 		}
-		isGameValid := validateGame(constraint,gameCubes)
+		isGameValid := validateGame(constraint, gameCubes)
 
 		if isGameValid {
 			sumOfValidGames += gameNumber
@@ -36,20 +36,20 @@ func main() {
 		minCube := getMinCubesForGame(gameCubes)
 		power := getPower(minCube)
 		sumOfPowers += power
-		
+
 	}
 	fmt.Printf("sumOfValidGames: %v\n", sumOfValidGames)
 	fmt.Printf("sumOfPowers: %v\n", sumOfPowers)
 }
 
 func getPower(min game) int {
-	return min.blue*min.green*min.red
+	return min.blue * min.green * min.red
 }
 
 func getMinCubesForGame(games []game) game {
-	var min game 
+	var min game
 
-	for _ , turn := range games {
+	for _, turn := range games {
 		if turn.red > min.red {
 			min.red = turn.red
 		}
@@ -61,22 +61,22 @@ func getMinCubesForGame(games []game) game {
 		}
 	}
 
-	return min 
+	return min
 }
 
 func validateGame(constraint game, games []game) bool {
-	for _ , turn := range games {
+	for _, turn := range games {
 		if turn.blue > constraint.blue {
-			return false 
+			return false
 		}
 		if turn.green > constraint.green {
-			return false 
+			return false
 		}
 		if turn.red > constraint.red {
-			return false 
+			return false
 		}
 	}
-	return true 
+	return true
 }
 
 func parseTurn(turn string) game { // converts the given string as a game struct

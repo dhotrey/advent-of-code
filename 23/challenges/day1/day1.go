@@ -119,12 +119,12 @@ func getAsciiDigit(substr string, digitsPresent []string, firstDigit bool, edge 
 			}
 		}
 
-		if len(workingDigitscpy) == 0 && len(repeated) != 0{
-			for _ , digit := range repeated {
-				idx := strings.Index(substr,digit)
+		if len(workingDigitscpy) == 0 && len(repeated) != 0 {
+			for _, digit := range repeated {
+				idx := strings.Index(substr, digit)
 				loc[idx] = digit
 
-				indexed = append(indexed,digit)
+				indexed = append(indexed, digit)
 				indices = append(indices, idx)
 			}
 		}
@@ -143,13 +143,13 @@ func getAsciiDigit(substr string, digitsPresent []string, firstDigit bool, edge 
 		substr = strings.Replace(substr, repeated[0], strings.Repeat("x", len(repeated[0])), 1) // remove the first recurring element from str
 		workingDigitscpy = popFromArray(workingDigitscpy, indexed)                              // remove the indexed elements from digits array
 		if len(repeated) > 0 {
-			indexed = popFromArray(indexed, repeated[:1])                   // remove the repeated element from indexed array
+			indexed = popFromArray(indexed, repeated[:1])                    // remove the repeated element from indexed array
 			indexed = append(indexed, strings.Repeat("x", len(repeated[0]))) // append a dummy element for exit condition
 			if len(workingDigitscpy) != 0 {
 				repeated = repeated[1:]
 			}
-			                                          // remove the first repeated element from the repeated array
-			 // append a dummy element for exit condition
+			// remove the first repeated element from the repeated array
+			// append a dummy element for exit condition
 		}
 		defer func() {
 			if r := recover(); r != nil {
