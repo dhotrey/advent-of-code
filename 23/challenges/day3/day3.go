@@ -18,9 +18,9 @@ func main() {
 	lines := convertTo2dArr(data)
 	var sumOfAllParts int
 	positionLookUpT := map[string]func(lines [][]string, charLoc []int, loc funnySymbolLoc) int{
-		"middle": getSumFromMiddleElement,
-		"corner": getSumFromCornerElement,
-		"edge":   getSumFromEdgeElement,
+		"middle": getSumForAnyElement,
+		"corner": getSumForAnyElement,
+		"edge":   getSumForAnyElement,
 	}
 	for lineNumber, line := range lines {
 		for charNum, char := range line {
@@ -73,76 +73,7 @@ func determinePosition(charLoc []int, totalLines int, totalChar int) funnySymbol
 
 	return loc
 }
-
-func getSumFromEdgeElement(lines [][]string, charLoc []int, loc funnySymbolLoc) int {
-	switch loc.position {
-	case "topEdge":
-		right := getRightElement(lines, charLoc)
-		left := getLeftElement(lines, charLoc)
-		bottom, bottomLeftExists, bottomRightExists := getBottomElement(lines, charLoc)
-		bottomLeft := getBottomLeftElement(bottomLeftExists, lines, charLoc)
-		bottomRight := getBottomRightElement(bottomRightExists, lines, charLoc)
-		sum := right + left + bottom + bottomLeft + bottomRight
-		return sum
-	case "bottomEdge":
-		top, topLeftExists, topRightExists := getTopElement(lines, charLoc)
-		right := getRightElement(lines, charLoc)
-		left := getLeftElement(lines, charLoc)
-		topLeft := getTopLeftElement(topLeftExists, lines, charLoc)
-		topRight := getTopRightElement(topRightExists, lines, charLoc)
-		sum := top + left + right + topLeft + topRight
-		return sum
-	case "leftEdge":
-		top, _, topRightExists := getTopElement(lines, charLoc)
-		bottom, _, bottomRightExists := getBottomElement(lines, charLoc)
-		right := getRightElement(lines, charLoc)
-		topRight := getTopRightElement(topRightExists, lines, charLoc)
-		bottomRight := getBottomRightElement(bottomRightExists, lines, charLoc)
-		sum := top + bottom + topRight + bottomRight + right
-		return sum
-	case "rightEdge":
-		top, topLeftExists, _ := getTopElement(lines, charLoc)
-		bottom, bottomLeftExists, _ := getBottomElement(lines, charLoc)
-		left := getLeftElement(lines, charLoc)
-		topLeft := getTopLeftElement(topLeftExists, lines, charLoc)
-		bottomLeft := getBottomLeftElement(bottomLeftExists, lines, charLoc)
-		sum := top + bottom + topLeft + bottomLeft + left
-		return sum
-	}
-	return 0
-}
-
-func getSumFromCornerElement(lines [][]string, charLoc []int, loc funnySymbolLoc) int {
-	switch loc.position {
-	case "topLeft":
-		right := getRightElement(lines,charLoc)
-		bottom , _ , bottomRightExists := getBottomElement(lines,charLoc)
-		bottomRight := getBottomRightElement(bottomRightExists,lines,charLoc)
-		sum := right + bottom + bottomRight
-		return sum 
-	case "topRight":
-		left := getLeftElement(lines,charLoc)
-		bottom , bottomLeftExists , _ := getBottomElement(lines,charLoc)
-		bottomLeft := getBottomLeftElement(bottomLeftExists,lines,charLoc)
-		sum := left + bottomLeft + bottom
-		return sum
-	case "bottomLeft":
-		top , _ , topRightExists := getTopElement(lines,charLoc)
-		right := getRightElement(lines,charLoc)
-		topRight := getTopRightElement(topRightExists,lines,charLoc)
-		sum := top + right + topRight
-		return sum 
-	case "bottomRight":
-		top , topLeftExists , _ := getTopElement(lines,charLoc)
-		left := getLeftElement(lines,charLoc)
-		topLeft := getTopLeftElement(topLeftExists,lines,charLoc)
-		sum := top + left + topLeft
-		return sum 
-	}
-	return 0
-}
-
-func getSumFromMiddleElement(lines [][]string, charLoc []int, loc funnySymbolLoc) int {
+func getSumForAnyElement(lines [][]string, charLoc []int, loc funnySymbolLoc) int {
 	left := getLeftElement(lines, charLoc)
 	right := getRightElement(lines, charLoc)
 	top, topLeftExists, topRightExists := getTopElement(lines, charLoc)
