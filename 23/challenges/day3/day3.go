@@ -17,6 +17,7 @@ func main() {
 	defer file.Close()
 	lines := convertTo2dArr(data)
 	var sumOfAllParts int
+	var sumOfAllGearRatios int 
 	positionLookUpT := map[string]func(lines [][]string, charLoc []int, loc funnySymbolLoc) int{
 		"middle": getSumForAnyElement,
 		"corner": getSumForAnyElement,
@@ -31,11 +32,44 @@ func main() {
 				sumCalculator := positionLookUpT[position.locType]
 				sumOfNumbersAroundFunnySymbol := sumCalculator(lines, charLoc, position)
 				sumOfAllParts += sumOfNumbersAroundFunnySymbol
+				gearRatio := getGearRatio(lines,charLoc)
+				sumOfAllGearRatios += gearRatio
 			}
 		}
 	}
 	fmt.Printf("sumOfAllParts: %v\n", sumOfAllParts)
+	fmt.Printf("sumOfAllGearRatios: %v\n", sumOfAllGearRatios)
 }
+
+func getGearRatio(lines [][]string, charLoc []int) int {
+	left := getLeftElement(lines, charLoc)
+	right := getRightElement(lines, charLoc)
+	top, topLeftExists, topRightExists := getTopElement(lines, charLoc)
+	bottom, bottomLeftExists, bottomRightExists := getBottomElement(lines, charLoc)
+	topLeft := getTopLeftElement(topLeftExists, lines, charLoc)
+	topRight := getTopRightElement(topRightExists, lines, charLoc)
+	bottomLeft := getBottomLeftElement(bottomLeftExists, lines, charLoc)
+	bottomRight := getBottomRightElement(bottomRightExists, lines, charLoc)
+
+	partNum := checkHowManyExist([]int{left,right,top,bottom,topLeft,topRight,bottomLeft,bottomRight})
+	return partNum[0]*partNum[1]
+}
+
+
+func checkHowManyExist(partLocations[]int) []int {
+	var partsAround []int  
+	for _ , partNum := range partLocations {
+		if partNum != 0 {
+			partsAround = append(partsAround, partNum)
+		}
+	}
+	if len(partsAround) == 2 {
+		return partsAround
+	} else {
+		return []int{0,0}
+	}	
+}
+
 func determinePosition(charLoc []int, totalLines int, totalChar int) funnySymbolLoc {
 	charNum := charLoc[1]
 	lineNum := charLoc[0]
