@@ -17,7 +17,7 @@ func main() {
 	defer file.Close()
 	lines := convertTo2dArr(data)
 	var sumOfAllParts int
-	var sumOfAllGearRatios int 
+	var sumOfAllGearRatios int
 	positionLookUpT := map[string]func(lines [][]string, charLoc []int, loc funnySymbolLoc) int{
 		"middle": getSumForAnyElement,
 		"corner": getSumForAnyElement,
@@ -32,7 +32,7 @@ func main() {
 				sumCalculator := positionLookUpT[position.locType]
 				sumOfNumbersAroundFunnySymbol := sumCalculator(lines, charLoc, position)
 				sumOfAllParts += sumOfNumbersAroundFunnySymbol
-				gearRatio := getGearRatio(lines,charLoc)
+				gearRatio := getGearRatio(lines, charLoc)
 				sumOfAllGearRatios += gearRatio
 			}
 		}
@@ -51,14 +51,13 @@ func getGearRatio(lines [][]string, charLoc []int) int {
 	bottomLeft := getBottomLeftElement(bottomLeftExists, lines, charLoc)
 	bottomRight := getBottomRightElement(bottomRightExists, lines, charLoc)
 
-	partNum := checkHowManyExist([]int{left,right,top,bottom,topLeft,topRight,bottomLeft,bottomRight})
-	return partNum[0]*partNum[1]
+	partNum := checkHowManyExist([]int{left, right, top, bottom, topLeft, topRight, bottomLeft, bottomRight})
+	return partNum[0] * partNum[1]
 }
 
-
-func checkHowManyExist(partLocations[]int) []int {
-	var partsAround []int  
-	for _ , partNum := range partLocations {
+func checkHowManyExist(partLocations []int) []int {
+	var partsAround []int
+	for _, partNum := range partLocations {
 		if partNum != 0 {
 			partsAround = append(partsAround, partNum)
 		}
@@ -66,8 +65,8 @@ func checkHowManyExist(partLocations[]int) []int {
 	if len(partsAround) == 2 {
 		return partsAround
 	} else {
-		return []int{0,0}
-	}	
+		return []int{0, 0}
+	}
 }
 
 func determinePosition(charLoc []int, totalLines int, totalChar int) funnySymbolLoc {
