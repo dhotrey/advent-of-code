@@ -7,7 +7,7 @@ import (
 	"github.com/charmbracelet/log"
 )
 
-func Day1(mode string) {
+func Sol(mode string) {
 	log.Info("Running in", "mode", mode)
 	data, file := utils.GetInput(1, mode)
 	defer file.Close()
