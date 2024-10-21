@@ -2,6 +2,7 @@ package main
 
 import (
 	"21/challenges/day1"
+	"21/challenges/day2"
 	"flag"
 	"strconv"
 
@@ -10,9 +11,9 @@ import (
 
 func main() {
 	log.SetReportCaller(true)
-	log.SetReportTimestamp(true)
-	log.SetTimeFormat("2006-01-02 15:04:02")
-	log.SetPrefix("AOC-2021")
+	log.SetReportTimestamp(false)
+	// log.SetTimeFormat("2006-01-02 15:04:02")
+	// log.SetPrefix("AOC-2021")
 	log.SetFormatter(log.TextFormatter)
 
 	var mode string
@@ -38,7 +39,9 @@ func main() {
 
 	switch chal {
 	case 1:
-		day1.Day1(mode)
+		day1.Sol(mode)
+	case 2:
+		day2.Sol(mode)
 	}
 
 }
