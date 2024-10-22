@@ -3,6 +3,7 @@ package main
 import (
 	"21/challenges/day1"
 	"21/challenges/day2"
+	"21/challenges/day3"
 	"flag"
 	"strconv"
 
@@ -42,6 +43,8 @@ func main() {
 		day1.Sol(mode)
 	case 2:
 		day2.Sol(mode)
+	case 3:
+		day3.Sol(mode)
 	}
 
 }
