@@ -4,8 +4,10 @@ import (
 	"21/challenges/day1"
 	"21/challenges/day2"
 	"21/challenges/day3"
+	"21/challenges/day4"
 	"flag"
 	"strconv"
+	"time"
 
 	"github.com/charmbracelet/log"
 )
@@ -13,8 +15,6 @@ import (
 func main() {
 	log.SetReportCaller(true)
 	log.SetReportTimestamp(false)
-	// log.SetTimeFormat("2006-01-02 15:04:02")
-	// log.SetPrefix("AOC-2021")
 	log.SetFormatter(log.TextFormatter)
 
 	var mode string
@@ -37,7 +37,7 @@ func main() {
 	} else {
 		mode = "final"
 	}
-
+	startTime := time.Now()
 	switch chal {
 	case 1:
 		day1.Sol(mode)
@@ -45,6 +45,9 @@ func main() {
 		day2.Sol(mode)
 	case 3:
 		day3.Sol(mode)
+	case 4:
+		day4.Sol(mode)
 	}
-
+	executionTime := time.Since(startTime)
+	log.Infof("Finished executing in %s", executionTime)
 }
