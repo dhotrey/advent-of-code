@@ -49,5 +49,5 @@ func main() {
 		day4.Sol(mode)
 	}
 	executionTime := time.Since(startTime)
-	log.Infof("Finished executing in %s", executionTime)
+	defer log.Infof("Finished executing in %s", executionTime)
 }
