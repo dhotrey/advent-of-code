@@ -50,12 +50,14 @@ func Sol(mode string) {
 	log.Info("Got risk level", "riskLevel", riskLevel)
 
 	sinkSizeArr := []int{}
+
 	for _, pt := range lowPts {
 		size := getBasinSize(pt)
 		log.Info(pt, "sinkSize", size+1)
 		log.Info(" ")
 		sinkSizeArr = append(sinkSizeArr, size+1)
 	}
+
 	slices.Sort(sinkSizeArr)
 	log.Info(sinkSizeArr)
 	sinkSizeSize := len(sinkSizeArr)
@@ -71,7 +73,6 @@ func getBasinSize(p point) int {
 	var size int
 	sinkPoints := []*point{&p}
 	checkedEle := make(map[string]int)
-	// cycles := 0
 
 	for len(sinkPoints) != 0 {
 		lowPt := sinkPoints[0]
@@ -96,36 +97,9 @@ func getBasinSize(p point) int {
 			}
 		}
 		log.Debug(sinkPoints)
-		sinkPoints = removeDuplicates(sinkPoints)
 		log.Debug(" ")
-
-		// cycles++
-		// if cycles == 5 {
-		// 	log.Fatal(" ")
-		// }
 	}
-
 	return size
-}
-
-func removeDuplicates(sinks []*point) []*point {
-	sinkSet := []*point{}
-	sinkOccuranceMap := make(map[string]int)
-
-	for _, p := range sinks {
-		sha := p.getSHA()
-		_, ok := sinkOccuranceMap[sha]
-		if !ok {
-			sinkOccuranceMap[sha] = 1
-			sinkSet = append(sinkSet, p)
-		}
-	}
-
-	if len(sinkSet) != len(sinks) {
-		log.Warnf("removed %d points from list", len(sinks)-len(sinkSet))
-		log.Debugf("new list %s \n", sinkSet)
-	}
-	return sinkSet
 }
 
 func getTotalRiskLevel(heightMap [][]string) (int, []point) { // TODO : refactor to use new abstractions

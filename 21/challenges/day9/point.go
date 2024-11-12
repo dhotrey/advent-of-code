@@ -75,6 +75,7 @@ func (p *point) getRight() point {
 
 func newPoint(xCoord, yCoord int, heightMap *[][]string) point {
 	p := point{}
+
 	p.pointType = 99 // arbitrary value
 
 	p.heightMap = heightMap
