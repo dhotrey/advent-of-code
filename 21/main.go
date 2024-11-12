@@ -9,6 +9,7 @@ import (
 	"21/challenges/day6"
 	"21/challenges/day7"
 	"21/challenges/day8"
+	"21/challenges/day9"
 	"flag"
 	"strconv"
 	"time"
@@ -59,6 +60,8 @@ func main() {
 		day7.Sol(mode)
 	case 8:
 		day8.Sol(mode)
+	case 9:
+		day9.Sol(mode)
 	}
 	executionTime := time.Since(startTime)
 	defer log.Infof("Finished executing in %s", executionTime)
