@@ -12,7 +12,7 @@ import (
 func main() {
 	var sum int
 	var newSum int
-	data, file := GetData("day1-input.txt")
+	data, file := GetData("input.txt")
 	defer file.Close()
 	var calibrationValues []int
 	var calibrationValues2 []int

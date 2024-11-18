@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	data, file := GetData("day4-input.txt")
+	data, file := GetData("input.txt")
 	defer file.Close()
 	var totalPoints int
 	cardOccurancemap := make(map[int]int)

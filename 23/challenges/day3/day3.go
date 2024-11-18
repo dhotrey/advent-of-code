@@ -13,7 +13,7 @@ type funnySymbolLoc struct {
 }
 
 func main() {
-	data, file := GetData("day3-input.txt")
+	data, file := GetData("input.txt")
 	defer file.Close()
 	lines := convertTo2dArr(data)
 	var sumOfAllParts int

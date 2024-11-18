@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	data, file := GetData("day2-input.txt")
+	data, file := GetData("input.txt")
 	defer file.Close()
 	sumOfValidGames := 0
 	sumOfPowers := 0
