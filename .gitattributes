@@ -1,1 +1,2 @@
 **/final.txt filter=git-crypt diff=git-crypt
+**/input.txt filter=git-crypt diff=git-crypt
