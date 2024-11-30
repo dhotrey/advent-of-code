@@ -3,6 +3,7 @@ package main
 import (
 	"21/challenges/day1"
 	"21/challenges/day10"
+	"21/challenges/day11"
 	"21/challenges/day2"
 	"21/challenges/day3"
 	"21/challenges/day4"
@@ -65,6 +66,8 @@ func main() {
 		day9.Sol(mode)
 	case 10:
 		day10.Sol(mode)
+	case 11:
+		day11.Sol(mode)
 	}
 	executionTime := time.Since(startTime)
 	defer log.Infof("Finished executing in %s", executionTime)
