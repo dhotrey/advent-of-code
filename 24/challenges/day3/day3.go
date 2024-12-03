@@ -2,7 +2,6 @@ package day3
 
 import (
 	"24/utils"
-	"fmt"
 	"strconv"
 
 	"regexp"
@@ -16,7 +15,6 @@ func Sol(mode string) {
 
 	var totalSum = 0
 	var newSum = 0
-	var cheating = 0
 	for data.Scan() {
 		line := data.Text()
 		log.Debug(line)
@@ -27,7 +25,6 @@ func Sol(mode string) {
 		newSum += newSumVal
 		log.Warn(newSumVal)
 
-		cheating += Solved3p3(line)
 	}
 	log.Infof("Adding results of all multiplications %d", totalSum)
 	log.Infof("Adding results of modified instructionset  %d", newSum)
@@ -123,25 +120,4 @@ func extractMul(input string) [][]string {
 	// Find all matches
 	matches := regex.FindAllStringSubmatch(input, -1)
 	return matches
-}
-
-func Solved3p3(input string) int {
-	reg := regexp.MustCompile(`mul\(\d+,\d+\)|do\(\)|don't\(\)`)
-	res := reg.FindAll([]byte(input), -1)
-	result := 0
-	mulEnabed := true
-	for _, mulStatement := range res {
-		s := string(mulStatement)
-		if s == "do()" {
-			mulEnabed = true
-		} else if s == "don't()" {
-			mulEnabed = false
-		}
-		if mulEnabed {
-			var a, b int
-			fmt.Sscanf(string(mulStatement), "mul(%d,%d)", &a, &b)
-			result += a * b
-		}
-	}
-	return result
 }
