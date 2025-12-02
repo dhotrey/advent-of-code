@@ -18,6 +18,7 @@ func Sol(mode string) {
 	line := data.Text()
 	ranges := strings.Split(line, ",")
 	sumOfIds := 0
+	partTwoSum := 0
 
 	for _, idRange := range ranges {
 		ids := strings.Split(idRange, "-")
@@ -29,10 +30,41 @@ func Sol(mode string) {
 			if idIsInvalid(i) {
 				sumOfIds += i
 			}
+			if idIsInvalidPartTwo(i) {
+				partTwoSum += i
+			}
 		}
 	}
 
 	log.Info("Got sum of ids", "sum", sumOfIds)
+	log.Info("Part 2 solution", "sol", partTwoSum)
+}
+
+func checkRepeating(length int, strId string) bool {
+	if len(strId)%length == 0 {
+		delim := len(strId) / length
+		num := strId[0:delim]
+		for i := range length {
+			next := strId[i*delim : (i+1)*delim]
+			if next != num {
+				return false
+			}
+		}
+		return true
+	}
+	return false
+}
+
+func idIsInvalidPartTwo(id int) bool {
+	strId := strconv.Itoa(id)
+	possibleCombinations := []int{5, 3, 2, 7}
+
+	for _, combination := range possibleCombinations {
+		if checkRepeating(combination, strId) {
+			return true
+		}
+	}
+	return false
 }
 
 func idIsInvalid(id int) bool {
