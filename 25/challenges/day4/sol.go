@@ -40,8 +40,11 @@ func Sol(mode string) {
 		if moveableRoles == 0 { // no more roles can be extracted
 			break
 		}
+		if i == 1 {
+			log.Infof("Solution for p1 %d", accessible)
+		}
 	}
-	log.Infof("%d roles of paper are accessible", accessible)
+	log.Infof("Solution for p2 %d", accessible)
 }
 
 func cleanUp(grid [][]string) {
@@ -60,11 +63,12 @@ func prettyPrint(grid [][]string) {
 	}
 }
 
+var directions = [8][2]int{{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}}
+
 func getNeighbourCount(grid [][]string, rowIdx, columnIdx int) int {
 	neighbours := 0
 	rows := len(grid)
 	cols := len(grid[0])
-	directions := [][]int{{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}}
 	// N , NE , E , SE , S , SW , W , NW
 
 	for _, d := range directions {
