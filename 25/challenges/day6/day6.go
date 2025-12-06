@@ -2,8 +2,6 @@ package day6
 
 import (
 	"25/utils"
-	"errors"
-	"slices"
 	"strconv"
 	"strings"
 
