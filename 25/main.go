@@ -9,6 +9,7 @@ import (
 	"25/challenges/day6"
 	"25/challenges/day7"
 	"25/challenges/day8"
+	"25/challenges/day9"
 	"flag"
 	"strconv"
 	"time"
@@ -60,6 +61,8 @@ func main() {
 		day7.Sol(mode)
 	case 8:
 		day8.Sol(mode)
+	case 9:
+		day9.Sol(mode)
 	}
 	executionTime := time.Since(startTime)
 	log.Infof("Solved challenge in %v seconds", executionTime.Seconds())
