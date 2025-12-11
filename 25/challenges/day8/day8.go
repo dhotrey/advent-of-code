@@ -13,12 +13,12 @@ func Sol(mode string) {
 	data, file := utils.GetInput(8, mode)
 	defer file.Close()
 
-	var iterations int
-	if mode == "test" {
-		iterations = 10
-	} else {
-		iterations = 1000
-	}
+	// var iterations int
+	// if mode == "test" {
+	// 	iterations = 10
+	// } else {
+	// 	iterations = 1000
+	// }
 
 	points := itertools.List{}
 
@@ -41,36 +41,42 @@ func Sol(mode string) {
 		}{distance(p1, p2), p1, p2})
 	}
 
-	log.Debug("raw", "dist", distances[0].distance, "p1", distances[0].p1, "p2", distances[0].p2)
-
 	slices.SortFunc(distances, func(a, b junctionPair) int {
 		return a.distance - b.distance
 	})
 
-	log.Debug("sorted", "dist", distances[0].distance, "p1", distances[0].p1, "p2", distances[0].p2)
+	// for i := range iterations {
+	// 	junctionPair := distances[i]
+	// 	circuits = addJunctionPair(circuits, junctionPair)
+	// }
+	//
+	// slices.SortFunc(circuits, func(a, b *circuit) int {
+	// 	return len(b.boxes) - len(a.boxes)
+	// })
+	//
+	// sol := circuits[:3]
+	//
+	// part1 := 1
+	// for i, s := range sol {
+	// 	log.Debugf("Size of %d element is %d", i, len(s.boxes))
+	// 	part1 *= len(s.boxes)
+	// }
+	// log.Debug("", "total circuits created", len(circuits))
+	// log.Info("Part 1 ", "solution", part1)
 
-	for i := range iterations {
+	part2Sol := 0
+	for i := 0; ; i++ {
 		junctionPair := distances[i]
 		circuits = addJunctionPair(circuits, junctionPair)
+
+		if len(circuits) == 1 {
+			if len(circuits[0].boxes) == len(points) {
+				part2Sol = junctionPair.p1.x * junctionPair.p2.x
+				break
+			}
+		}
 	}
-
-	slices.SortFunc(circuits, func(a, b *circuit) int {
-		return len(b.boxes) - len(a.boxes)
-	})
-
-	for _, c := range circuits {
-		log.Debug(len(c.boxes))
-	}
-	sol := circuits[:3]
-
-	part1 := 1
-	for i, s := range sol {
-		log.Debugf("Size of %d element is %d", i, len(s.boxes))
-		part1 *= len(s.boxes)
-	}
-	log.Debug("", "total circuits created", len(circuits))
-	log.Info("Part 1 ", "solution", part1)
-
+	log.Info("Part 2", "solution", part2Sol)
 }
 
 func addJunctionPair(circuits []*circuit, jp junctionPair) []*circuit {
