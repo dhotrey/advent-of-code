@@ -11,9 +11,9 @@ import (
 )
 
 func area(p1, p2 []int) int {
-	l := p1[0] - p2[0]
-	w := p1[1] - p2[1]
-	area := math.Abs(float64(l*w)) + math.Abs(float64(l+w+1))
+	l := p1[0] - p2[0] + 1
+	w := p1[1] - p2[1] + 1
+	area := math.Abs(float64(l * w))
 	return int(area)
 }
 
