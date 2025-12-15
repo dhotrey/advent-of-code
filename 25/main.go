@@ -2,6 +2,7 @@ package main
 
 import (
 	"25/challenges/day1"
+	"25/challenges/day11"
 	"25/challenges/day2"
 	"25/challenges/day3"
 	"25/challenges/day4"
@@ -63,6 +64,8 @@ func main() {
 		day8.Sol(mode)
 	case 9:
 		day9.Sol(mode)
+	case 11:
+		day11.Sol(mode)
 	}
 	executionTime := time.Since(startTime)
 	log.Infof("Solved challenge in %v seconds", executionTime.Seconds())
