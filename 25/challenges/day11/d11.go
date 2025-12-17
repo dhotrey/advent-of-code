@@ -8,18 +8,21 @@ import (
 	"github.com/charmbracelet/log"
 )
 
-func find(curr string, lookupT map[string][]string, paths int) (map[string][]string, int) {
+func find(curr string, lookupT map[string][]string, count int, path []string) (map[string][]string, int, []string) {
+	log.Debug("~>", "current", curr)
+
+	path = append(path, curr)
 	children := lookupT[curr]
 	if slices.Contains(children, "out") {
-		paths++
-		return lookupT, paths
+		count++
+		return lookupT, count, append(path, "out")
 	}
 
 	for _, child := range children {
-		_, paths = find(child, lookupT, paths)
+		_, count, path = find(child, lookupT, count, path)
 	}
 
-	return lookupT, paths
+	return lookupT, count, path
 }
 
 func Sol(mode string) {
@@ -34,8 +37,9 @@ func Sol(mode string) {
 		lookUpT[parent[0]] = children
 	}
 
-	_, paths := find("you", lookUpT, 0)
+	_, pathCount, pathNodes := find("you", lookUpT, 0, []string{})
 
-	log.Debug("~>", "paths", paths)
+	log.Info("~>", "paths", pathCount)
+	log.Debug("~>", "nodes", pathNodes)
 
 }
